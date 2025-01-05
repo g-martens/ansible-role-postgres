@@ -1,8 +1,7 @@
 galaxy_info:
   author: Guido Martens
   description: Install and deploy Postgres
-  company: DIVD
-  license: DIVD
+  license: Guido Martens
   min_ansible_version: "2.1"
   galaxy_tags: []
 dependencies: []
