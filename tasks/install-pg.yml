@@ -1,0 +1,57 @@
+---
+# tasks for install and create postgress database
+- name: Install EPEL release
+  ansible.builtin.dnf:
+    name: epel-release
+    state: present
+  become: true
+
+- name: Add repository
+  ansible.builtin.yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: https://download.postgresql.org/pub/repos/yum/17/redhat/rhel-9-x86_64/
+    enabled: true
+    gpgcheck: false
+
+- name: Disable builtin postgresql module
+  ansible.builtin.shell: >
+    dnf -qy module disable postgresql
+  args:
+    executable: /bin/bash
+  register: disable_builtin_postgres
+  changed_when: disable_builtin_postgres.rc == 0
+  failed_when: disable_builtin_postgres.rc != 0
+  ignore_errors: true
+  become: true
+
+- name: Install require packages on EL8 and EL9
+  ansible.builtin.package:
+    name:
+      - python3-pycurl
+      - python3-libselinux
+      - python3-psycopg2
+      - glibc-langpack-en
+      - openssl
+      - python3-psycopg2
+    state: present
+  become: true
+
+- name: Install PostgreSQL 17
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  become: true
+  loop:
+    - postgresql17
+    - postgresql17-server
+    - postgresql17-contrib
+
+- name: Open firewall port for PostgreSQL
+  ansible.builtin.firewalld:
+    service: postgresql
+    permanent: true
+    state: enabled
+    immediate: true
+  become: true
+...

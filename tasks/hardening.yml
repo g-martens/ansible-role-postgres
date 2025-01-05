@@ -1,0 +1,28 @@
+---
+# Configure pg_hba.conf
+- name: Configure pg_hba.conf
+  lineinfile:
+    dest: "{{ pg_hba }}"
+    line: 'host    all          all            {{ allow_subnet }}  md5'
+    state: present
+
+- name: set listen_adressess
+  lineinfile:
+    dest: "{{ pg_conf }}"
+    regexp: '^#listen_addresses\s*='
+    line: "listen_addresses = '*'"
+    state: present
+    backup: yes
+
+- name: Set password for postgres database user
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: postgres
+    password: "{{ postgres_password }}"
+
+- name: Restart postgresql
+  systemd:
+    name: postgresql-17
+    state: restarted
+    enabled: true

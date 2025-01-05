@@ -1,0 +1,16 @@
+---
+- name: Initialize postgres db
+  ansible.builtin.shell: >
+    /usr/pgsql-17/bin/postgresql-17-setup initdb
+  become: true
+  register: init
+  failed_when: "'Data directory is not empty!' in init.stdout_lines"
+  ignore_errors: true
+
+- name: Ensure PostgreSQL service is running
+  ansible.builtin.service:
+    name: postgresql-17
+    state: started
+    enabled: true
+  become: true
+...
