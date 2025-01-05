@@ -45,7 +45,7 @@
   loop:
     - "postgresql{{ pg_version }}"
     - "postgresql{{ pg_version }}-server"
-    - "postgresql{{ pg_version }}-contrib"ß
+    - "postgresql{{ pg_version }}-contrib"
 
 - name: Open firewall port for PostgreSQL
   ansible.builtin.firewalld:
