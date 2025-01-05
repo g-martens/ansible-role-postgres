@@ -10,7 +10,7 @@
   ansible.builtin.yum_repository:
     name: epel
     description: EPEL YUM repo
-    baseurl: https://download.postgresql.org/pub/repos/yum/17/redhat/rhel-9-x86_64/
+    baseurl: https://download.postgresql.org/pub/repos/yum/{{ pg_version }}/redhat/rhel-9-x86_64/
     enabled: true
     gpgcheck: false
 
@@ -37,15 +37,15 @@
     state: present
   become: true
 
-- name: Install PostgreSQL 17
+- name: Install PostgreSQL {{ pg_version }}
   ansible.builtin.dnf:
-    name: "{{ item }}"
+    name: "{{ item }}"ß
     state: present
   become: true
   loop:
-    - postgresql17
-    - postgresql17-server
-    - postgresql17-contrib
+    - "postgresql{{ pg_version }}"
+    - "postgresql{{ pg_version }}-server"
+    - "postgresql{{ pg_version }}-contrib"ß
 
 - name: Open firewall port for PostgreSQL
   ansible.builtin.firewalld:
