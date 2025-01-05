@@ -23,6 +23,6 @@
 
 - name: Restart postgresql
   systemd:
-    name: postgresql-17
+    name: postgresql-{{ pg_version }}
     state: restarted
     enabled: true
