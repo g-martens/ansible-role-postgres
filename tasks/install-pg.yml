@@ -39,7 +39,7 @@
 
 - name: Install PostgreSQL {{ pg_version }}
   ansible.builtin.dnf:
-    name: "{{ item }}"ß
+    name: "{{ item }}"
     state: present
   become: true
   loop:
