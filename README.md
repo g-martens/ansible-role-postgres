@@ -1,7 +1,8 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+This playbook is created to install an Postgres database on an Redhat 9 Based machine,
+You can also create users and databases
 
 Requirements
 ------------
@@ -37,7 +38,9 @@ Including an example of how to use your role (for instance, with variables passe
       vars:
         pg_version: "17"
         database_name: "dbname"
-        database_user: "dbuser"
+        database_users:
+          - name: "dbuser"
+            password: "password123"
         database_password: "password123"
         postgres_password: password
         postgres_host: "10.0.0.x"
@@ -65,4 +68,4 @@ Guido Martes
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+for questions, Contact guido-_@live.nl

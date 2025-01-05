@@ -1,19 +1,20 @@
 ---
 - name: Create a PostgreSQL user
   community.general.postgresql_user:
-    name: "{{ database_user }}"
-    password: "{{ database_password }}"
+    name: "{{ item.name }}"
+    password: "{{ item.password}}"
     state: present
   become: true
   become_user: postgres
+  loop: "{{ database_users }}"
 
 - name: Grant all privileges on database to user
   community.general.postgresql_privs:
-    db: "{{ database_name }}"
-    role: "{{ database_user }}"
+    db: "{{ item.name }}"
+    role: "{{ item.name }}"
     type: database
     privs: ALL
   become: true
   become_user: postgres
-
+  loop: "{{ database_users }}"
 ...
