@@ -46,6 +46,7 @@ Including an example of how to use your role (for instance, with variables passe
         pg_hba: "/var/lib/pgsql/{{ pg_version }}/data/pg_hba.conf"
         pg_conf: "/var/lib/pgsql/{{ pg_version }}/data/postgresql.conf"
         pg_datadisk: "/dev/sdb"
+        pg_datasize: "10G"
         pg_datamount: "data"
         allow_subnet: "0.0.0.0/0"
         

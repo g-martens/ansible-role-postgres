@@ -18,8 +18,8 @@
   when: vgcreate.changed
   block:
 
-    - name: Create logical volume lv_postgres of 50GB
-      command: lvcreate -L 50G -n lv_postgres vg_data
+    - name: Create logical volume lv_postgres of {{ pg_datasize }}
+      command: lvcreate -L {{ pg_datasize }} -n lv_postgres vg_data
 
     - name: Create ext4 filesystem on lv_postgres
       filesystem:
