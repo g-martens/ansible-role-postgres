@@ -9,10 +9,6 @@
     file: install-pg.yml
   tags: install
 
-- name: Initlize Postgress
-  ansible.builtin.import_tasks:
-    file: init-pg.yml
-  tags: init
 
 - name: Create Postgress Database
   ansible.builtin.import_tasks:

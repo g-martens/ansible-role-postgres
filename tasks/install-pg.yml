@@ -54,4 +54,25 @@
     state: enabled
     immediate: true
   become: true
+
+- name: Check if database need too initialized
+  ansible.builtin.stat:
+    path: "/var/lib/pgsql/{{ pg_version }}/data/PG_VERSION"
+  register: pg_data
+
+- name: Initialize postgres db
+  ansible.builtin.shell: >
+    /usr/pgsql-17/bin/postgresql-{{ pg_version }}-setup initdb
+  become: true
+  register: init
+  failed_when: "'Data directory is not empty!' in init.stdout_lines"
+  ignore_errors: true
+  when: not pg_data.stat.exists
+
+- name: Ensure PostgreSQL service is running
+  ansible.builtin.service:
+    name: postgresql-{{ pg_version }}
+    state: started
+    enabled: true
+  become: true
 ...

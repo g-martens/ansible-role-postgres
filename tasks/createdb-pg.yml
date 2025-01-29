@@ -3,6 +3,7 @@
   community.general.postgresql_db:
     name: "{{ database_name }}"
     state: present
+    encoding: "UTF-8"
   become: true
   become_user: postgres
 ...
