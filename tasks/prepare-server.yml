@@ -30,8 +30,6 @@
       file:
         path: "{{ pg_datamount }}"
         state: directory
-        owner: postgres
-        group: postgres
         mode: "0750"
 
     - name: Mount lv_postgres on {{ pg_datamount }}
