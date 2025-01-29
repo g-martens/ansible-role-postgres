@@ -33,16 +33,16 @@
         mode: "0750"
 
     - name: Mount lv_postgres on {{ pg_datamount }}
-      mount:
+      ansible.posix.mount:
         path: "{{ pg_datamount }}"
         src: /dev/vg_data/lv_postgres
         fstype: ext4
         state: mounted
 
-    - name: Ensure /data is mounted on reboot
-      mount:
+    - name: Ensure {{ pg_datamount }} is mounted on reboot
+      ansible.posix.mount:
         path: "{{ pg_datamount }}"
-        src: /dev/vg_data/lv_postgres
+        src: /dev/mapper-vg_data-lv_postgres
         fstype: ext4
         opts: defaults
         state: mounted
