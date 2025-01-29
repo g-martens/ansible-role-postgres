@@ -9,7 +9,6 @@
     file: install-pg.yml
   tags: install
 
-
 - name: Create Postgress Database
   ansible.builtin.import_tasks:
     file: createdb-pg.yml

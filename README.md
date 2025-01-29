@@ -45,7 +45,9 @@ Including an example of how to use your role (for instance, with variables passe
         postgres_host: "10.0.0.x"
         pg_hba: "/var/lib/pgsql/{{ pg_version }}/data/pg_hba.conf"
         pg_conf: "/var/lib/pgsql/{{ pg_version }}/data/postgresql.conf"
-        allow_subnet: "0.0.0.0/0"ß
+        pg_datadisk: "/dev/sdb"
+        allow_subnet: "0.0.0.0/0"
+        
 
     tasks:
 

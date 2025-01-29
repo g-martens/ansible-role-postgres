@@ -1,1 +1,51 @@
 ---
+- name: Create Volume group for postgres Data
+  block:
+
+    - name: Create physical volume on the second disk
+      command: pvcreate -v {{ pg_datadisk }}
+      register: pvcreate
+      failed_when: "'successfully created' not in pvcreate.stdout"
+
+    - name: Create volume group vg_data
+      when: pvcreate.changed
+      command: vgcreate vg_data {{ pg_datadisk }}
+      register: vgcreate
+      failed_when: "'successfully created' not in vgcreate.stdout"
+      ignore_errors: true
+
+- name: Create and mount LVM
+  when: vgcreate.changed
+  block:
+
+    - name: Create logical volume lv_postgres of 50GB
+      command: lvcreate -L 50G -n lv_postgres vg_data
+
+    - name: Create ext4 filesystem on lv_postgres
+      filesystem:
+        fstype: ext4
+        dev: /dev/vg_data/lv_postgres
+
+    - name: Create /data directory if it does not exist
+      file:
+        path: /data
+        state: directory
+        owner: postgres
+        group: postgres
+        mode: "0750"
+
+    - name: Mount lv_postgres on /data
+      mount:
+        path: /data
+        src: /dev/vg_data/lv_postgres
+        fstype: ext4
+        state: mounted
+
+    - name: Ensure /data is mounted on reboot
+      mount:
+        path: /data
+        src: /dev/vg_data/lv_postgres
+        fstype: ext4
+        opts: defaults
+        state: mounted
+        fstab: yes
