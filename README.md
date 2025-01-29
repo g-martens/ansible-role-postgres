@@ -41,7 +41,6 @@ Including an example of how to use your role (for instance, with variables passe
         database_users:
           - name: "dbuser"
             password: "password123"
-        database_password: "password123"
         postgres_password: password
         postgres_host: "10.0.0.x"
         pg_hba: "/var/lib/pgsql/{{ pg_version }}/data/pg_hba.conf"
