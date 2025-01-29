@@ -26,24 +26,24 @@
         fstype: ext4
         dev: /dev/vg_data/lv_postgres
 
-    - name: Create /data directory if it does not exist
+    - name: Create {{ pg_datamount }} directory if it does not exist
       file:
-        path: /data
+        path: "{{ pg_datamount }}"
         state: directory
         owner: postgres
         group: postgres
         mode: "0750"
 
-    - name: Mount lv_postgres on /data
+    - name: Mount lv_postgres on {{ pg_datamount }}
       mount:
-        path: /data
+        path: "{{ pg_datamount }}"
         src: /dev/vg_data/lv_postgres
         fstype: ext4
         state: mounted
 
     - name: Ensure /data is mounted on reboot
       mount:
-        path: /data
+        path: "{{ pg_datamount }}"
         src: /dev/vg_data/lv_postgres
         fstype: ext4
         opts: defaults
