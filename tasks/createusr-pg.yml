@@ -10,7 +10,7 @@
 
 - name: Grant all privileges on database to user
   community.general.postgresql_privs:
-    db: "{{ item.name }}"
+    db: "{{ database_name }}"
     role: "{{ item.name }}"
     type: database
     privs: ALL
