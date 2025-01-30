@@ -47,3 +47,9 @@
         opts: defaults
         state: mounted
         fstab: true
+
+    - name: Add {{ pg_datamount }} entry to /etc/fstab for lv_postgres
+      lineinfile:
+        path: /etc/fstab
+        line: "/dev/mapper/vg_data-lv_postgres {{ pg_datamount }} ext4 defaults 0 0"
+        state: present
