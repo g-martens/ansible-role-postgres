@@ -69,6 +69,15 @@
     mode: '0700'
   become: true
 
+- name: create override folder /etc/systemd/system/postgresql-{{ pg_version }}.service.d
+  ansible.builtin.file:
+  path: "/etc/systemd/system/postgresql-{{ pg_version }}.service.d"
+  state: directory
+  owner: root
+  group: root
+  mode: '0755'
+  recurse: yes
+
 - name: Create override for postgresql-{{ pg_version }} serivce
   ansible.builtin.copy:
     content: |
