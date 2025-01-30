@@ -1,10 +1,4 @@
 ---
-- name: Prepare server
-  ansible.builtin.import_tasks:
-    file: prepare-server.yml
-  tags: 
-    - prepare
-
 - name: Install Postgress
   ansible.builtin.import_tasks:
     file: install-pg.yml
