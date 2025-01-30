@@ -60,32 +60,6 @@
     path: "/var/lib/pgsql/{{ pg_version }}/data/PG_VERSION"
   register: pg_data
 
-- name: Set permission and owner for postgres data directory {{ pg_datamount }}
-  ansible.builtin.file:
-    path: "{{ pg_datamount }}"
-    state: directory
-    owner: postgres
-    group: postgres
-    mode: '0700'
-  become: true
-
-- name: create override folder /etc/systemd/system/postgresql-{{ pg_version }}.service.d
-  ansible.builtin.file:
-    path: "/etc/systemd/system/postgresql-{{ pg_version }}.service.d"
-    state: directory
-    owner: root
-    group: root
-    mode: '0755'
-    recurse: yes
-
-- name: Create override for postgresql-{{ pg_version }} serivce
-  ansible.builtin.copy:
-    content: |
-      [Service]
-      Environment=PGDATA={{ pg_datamount }}
-    dest: /etc/systemd/system/postgresql-{{ pg_version }}.service.d/override.conf
-  become: true
-
 - name: systemctl daemon-reload
   ansible.builtin.systemd:
     daemon_reload: yes
