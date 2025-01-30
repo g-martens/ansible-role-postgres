@@ -62,7 +62,7 @@
 
 - name: Initialize postgres db
   ansible.builtin.shell: >
-    /usr/pgsql-17/bin/postgresql-{{ pg_version }}-setup initdb --pgdata={{ pg_datamount }}
+    /usr/bin/postgresql-{{ pg_version }}-setup initdb --pgdata={{ pg_datamount }}
   become: true
   register: init
   failed_when: "'Data directory is not empty!' in init.stdout_lines"
