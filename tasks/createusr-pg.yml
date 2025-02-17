@@ -12,7 +12,8 @@
     db: "{{ postgres_database_name }}"
     role: "{{ postgres_user }}"
     type: database
-    privs: ALL
+    privs: USAGE,CREATE
+    objs: public
   become: true
   become_user: postgres
 ...
