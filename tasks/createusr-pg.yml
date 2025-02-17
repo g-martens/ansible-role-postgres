@@ -8,11 +8,12 @@
   become_user: postgres
 
 - name: Grant all privileges on database to user
-  community.general.postgresql_privs:
+  community.postgresql.postgresql_privs:
     db: "{{ postgres_database_name }}"
+    privs: ALL
+    type: schema
+    objs: public
     role: "{{ postgres_user }}"
-    type: database
-    privs: USAGE,CREATE
   become: true
   become_user: postgres
 ...
