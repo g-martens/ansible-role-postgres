@@ -19,7 +19,7 @@
   become_user: postgres
   postgresql_user:
     name: postgres
-    password: "{{ postgres_password }}"
+    password: "{{ postgres_root_password }}"
 
 - name: Restart postgresql
   systemd:
