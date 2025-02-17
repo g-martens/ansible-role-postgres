@@ -1,7 +1,7 @@
 ---
 - name: Create a PostgreSQL user
   community.general.postgresql_user:
-    name: "{{ postgres_user" }}"
+    name: "{{ postgres_user }}"
     password: "{{ postgres_user_password }}"
     state: present
   become: true
