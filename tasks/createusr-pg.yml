@@ -13,7 +13,7 @@
     role: "{{ postgres_user }}"
     type: database
     privs: USAGE,CREATE
-    objs: public
+    objs: ALL_IN_SCHEMA
   become: true
   become_user: postgres
 ...
