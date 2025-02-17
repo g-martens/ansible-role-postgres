@@ -14,14 +14,19 @@ Role Variables
 
 A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
+# Postgres Vars
 pg_version: "17"
-database_name: "awx"
-database_user: "dbuser"
-database_password: "password123"
-postgres_password: password
-postgres_host: "10.0.0.106"
+postgres_host: "10.0.0.x"
 pg_hba: "/var/lib/pgsql/17/data/pg_hba.conf"
 pg_conf: "/var/lib/pgsql/17/data/postgresql.conf"
+postgres_port: "5432"
+postgres_sslmode: "Disable"
+postgres_root_password: "passwrd"
+
+#db user
+postgres_user: "awx-user"
+postgres_user_password: "password"
+postgres_database_name: "awx"
 allow_subnet: "0.0.0.0/0"
 
 
@@ -37,17 +42,14 @@ Including an example of how to use your role (for instance, with variables passe
 
       vars:
         pg_version: "17"
-        database_name: "dbname"
-        database_users:
-          - name: "dbuser"
-            password: "password123"
-        postgres_password: password
+        postgres_user: "awx-user"
+        postgres_user_password: "do7iZNapRTVJXrrnFw"
+        postgres_database_name: "awx"
+        postgres_root_password: password
         postgres_host: "10.0.0.x"
         pg_hba: "/var/lib/pgsql/{{ pg_version }}/data/pg_hba.conf"
         pg_conf: "/var/lib/pgsql/{{ pg_version }}/data/postgresql.conf"
-        pg_datadisk: "/dev/sdb"
-        pg_datasize: "10G"
-        pg_datamount: "/data"
+
         allow_subnet: "0.0.0.0/0"
         
 
